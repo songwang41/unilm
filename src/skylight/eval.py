@@ -44,8 +44,6 @@ parser.add_argument("--only_eval_best", action='store_true',
                     help="Only evaluate best epoch.")
 parser.add_argument("--trunc_len", type=int, default=60,
                     help="Truncate line by the maximum length.")
-parser.add_argument("--min_summary_len", type=int, default=0,
-                    help="Remove summaries with fewer tokens")
 parser.add_argument("--duplicate_rate", type=float, default=0.7,
                     help="If the duplicat rate (compared with history) is large, we can discard the current sentence.")
 default_process_count = max(1, cpu_count() - 1)
@@ -256,7 +254,7 @@ def process_eval(eval_fn):
                 if any(get_f1(sentence, s) > 1.0 for s in buf):
                     continue
                 s_len = len(sentence.split())
-                if s_len <= args.min_summary_len:
+                if s_len <= 4:
                     continue
                 buf.append(sentence)
             if args.duplicate_rate and args.duplicate_rate < 1:
