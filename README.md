@@ -13,12 +13,12 @@
 
 The recommended way to run the code is using docker under Linux:
 ```bash
- alias=`whoami | cut -d'.' -f2`; docker run -it --rm --gpus all  --ipc=host --privileged -v /home/${alias}/work:/workspace pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel bash
+ alias=`whoami | cut -d'.' -f2`; docker run -it --rm --gpus all  --ipc=host --privileged -v /home/${alias}:/root pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel bash
+ ln -s /root/* /home/sonwang
 ```
 
 The docker is initialized by:
 ```bash
-. .bashrc
 apt-get update
 apt-get install -y vim wget ssh
 
@@ -42,6 +42,12 @@ mkdir ~/code; cd ~/code
 git clone https://github.com/microsoft/unilm.git
 cd ~/code/unilm/src
 pip install --user --editable .
+```
+
+Edit the Rouge path ~/.pyrouge/settings.ini
+```
+[pyrouge settings]ini (END)
+home_dir = <path to KG package>/KG/tool/Evaluation/ROUGE/ROUGE-1.5.5
 ```
 
 ## Pre-trained Models
